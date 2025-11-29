@@ -5,42 +5,42 @@ Gym Store Ecommerce es un prototipo de comercio electrónico desarrollado con Re
 
 El proyecto busca demostrar buenas prácticas de desarrollo, integración de tecnologías modernas y escalabilidad mediante contenedores Docker.
 
-Requisitos Previos
+-Requisitos Previos
 
-Antes de ejecutar el proyecto, asegúrate de tener instaladas las siguientes herramientas:
+-Antes de ejecutar el proyecto, asegúrate de tener instaladas las siguientes herramientas:
 
 Node.js (v18 o superior)
 Descargar Node.js
 
-Comprueba la versión:
+-Comprueba la versión:
 
 node -v
 npm -v
 
 
-PostgreSQL
-Descargar PostgreSQL
+-PostgreSQL
+-Descargar PostgreSQL
 
-Comprueba la versión:
+-Comprueba la versión:
 
 psql --version
 
 
-Docker y Docker Compose
-Descargar Docker
+-Docker y Docker Compose
+-Descargar Docker
 
-Comprueba la versión:
+-Comprueba la versión:
 
 docker --version
 docker-compose --version
 
 
-Git
+-Git
 Para clonar el repositorio si no se tiene descargado.
 
 git --version
 
-Estructura del Proyecto
+*Estructura del Proyecto
 ~/proyecto-ecommerce
 ├── docker-compose.yml
 ├── ecommerce-backend
@@ -78,10 +78,10 @@ Estructura del Proyecto
     │   ├── index.css
     │   └── api/products.js
 
-Configuración del Backend
-1. Instalar Dependencias
+-Configuración del Backend
+-1. Instalar Dependencias
 
-En la carpeta ecommerce-backend/ ejecutar:
+-En la carpeta ecommerce-backend/ ejecutar:
 
 npm install express pg dotenv prisma
 npm install -D nodemon
@@ -97,9 +97,9 @@ prisma: ORM para modelar y consultar la base de datos.
 
 nodemon: Herramienta de desarrollo para recargar servidor automáticamente.
 
-2. Variables de Entorno
+-2. Variables de Entorno
 
-Crear un archivo .env en ecommerce-backend/:
+-Crear un archivo .env en ecommerce-backend/:
 
 PORT=5000
 PGHOST=localhost
@@ -111,40 +111,40 @@ PGPORT=5432
 
 Nota: Si se usa Docker, PGHOST=db según el servicio de docker-compose.
 
-3. Inicializar Base de Datos
+-3. Inicializar Base de Datos
 
-Ejecutar PostgreSQL y crear la base gymstore.
+-Ejecutar PostgreSQL y crear la base gymstore.
 
-Ejecutar el script SQL:
+-Ejecutar el script SQL:
 
 psql -U postgres -d gymstore -f init-db/init.sql
 
 
-Esto creará tablas:
+-Esto creará tablas:
 
-products
+-products
 
-orders
+-orders
 
-order_items
+-order_items
 
-y agregará productos de ejemplo.
+-y agregará productos de ejemplo.
 
-4. Configuración de Prisma
+-4. Configuración de Prisma
 
 prisma/schema.prisma define los modelos Product y User.
 
-Ejecutar migraciones (opcional, Prisma no se usa completamente):
+-Ejecutar migraciones (opcional, Prisma no se usa completamente):
 
 npx prisma migrate dev --name init
 
-5. Ejecutar Backend
+-5. Ejecutar Backend
 npm run dev
 
 
 Con nodemon recargará cambios automáticamente.
 
-Endpoints disponibles:
+-Endpoints disponibles:
 
 GET /api/products → Lista de productos
 
@@ -156,10 +156,10 @@ GET /api/orders/:id → Obtener orden
 
 POST /api/orders → Crear orden
 
-Configuración del Frontend
-1. Instalar Dependencias
+-Configuración del Frontend
+-1. Instalar Dependencias
 
-En la carpeta ecommerce-gymstore/ ejecutar:
+-En la carpeta ecommerce-gymstore/ ejecutar:
 
 npm install react react-dom axios
 npm install -D vite tailwindcss postcss autoprefixer eslint @eslint/js eslint-plugin-react-hooks eslint-plugin-react-refresh
@@ -175,55 +175,55 @@ tailwindcss, postcss, autoprefixer: Para estilos modernos.
 
 eslint y plugins: Control de calidad de código.
 
-2. Configurar Tailwind
+-2. Configurar Tailwind
 
-tailwind.config.js ya apunta a:
+-tailwind.config.js ya apunta a:
 
 content: ["./index.html", "./src/**/*.{js,jsx}"]
 
 
-CSS principal incluye:
+-CSS principal incluye:
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-3. Ejecutar Frontend
+-3. Ejecutar Frontend
 npm run dev
 
 
-Por defecto corre en http://localhost:5173.
+-Por defecto corre en http://localhost:5173.
 
-Se conecta automáticamente al backend (http://localhost:5000/api).
+-Se conecta automáticamente al backend (http://localhost:5000/api).
 
-Dockerización (opcional, recomendado)
-1. Construir y levantar contenedores
+-Dockerización (opcional, recomendado)
+-1. Construir y levantar contenedores
 docker-compose up --build
 
 
-Esto levanta:
+-Esto levanta:
 
 app: Frontend con Vite.
 
 db (si se define en docker-compose): PostgreSQL.
 
-2. Comandos útiles
+-2. Comandos útiles
 
-Ver contenedores corriendo:
+-Ver contenedores corriendo:
 
 docker ps
 
 
-Acceder a un contenedor:
+-Acceder a un contenedor:
 
 docker exec -it <container_id> sh
 
 
-Detener contenedores:
+-Detener contenedores:
 
 docker-compose down
 
-Flujo de Uso de la Aplicación
+-Flujo de Uso de la Aplicación
 
 Abrir http://localhost:5173 en el navegador.
 
@@ -259,9 +259,9 @@ Endpoints retornan 404
 
 Revisar rutas en routes/products.js y routes/orders.js.
 
-Verificar que la base de datos tenga datos (init.sql ejecutado correctamente).
+-Verificar que la base de datos tenga datos (init.sql ejecutado correctamente).
 
-Dependencias Principales
+-Dependencias Principales
 Área	Dependencia	Uso
 Backend	express	Servidor y API REST
 	pg	Conexión a PostgreSQL
@@ -272,24 +272,25 @@ Frontend	react/react-dom	UI y componentes
 	tailwindcss	Estilos utilitarios y responsivos
 	axios	Peticiones HTTP al backend
 	eslint/plugins	Buenas prácticas de código
-Ejecución Final
+	
+-Ejecución Final
 
-Backend:
+-Backend:
 
 cd ecommerce-backend
 npm install
 npm run dev
 
 
-Frontend:
+-Frontend:
 
 cd ecommerce-gymstore
 npm install
 npm run dev
 
 
-Abrir navegador en http://localhost:5173
+-Abrir navegador en http://localhost:5173
 
-Alternativa Docker:
+-Alternativa Docker:
 
 docker-compose up --build
