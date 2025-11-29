@@ -1,0 +1,18 @@
+#version: "3.9"
+
+#services:
+  #app:
+    #image: ecommerce-gymstore
+    
+    #ports:
+      #- "5000:5000"
+    
+    #restart: unless-stopped
+
+
+services:
+  app:
+    build: .
+    ports:
+      - "5000:5000"
+    restart: unless-stopped

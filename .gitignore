@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.npm/
+.vscode/
+.vscode-server/
+*.log
+docker-compose.override.yml
+123
+123.pub
+

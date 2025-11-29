@@ -1,0 +1,41 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: gymstore
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./ecommerce-backend/init-db:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+      context: ./ecommerce-backend
+    depends_on:
+      - db
+    env_file:
+      - ./ecommerce-backend/.env
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./ecommerce-backend:/app
+      - /app/node_modules
+
+  frontend:
+    build:
+      context: ./ecommerce-gymstore
+    depends_on:
+      - backend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./ecommerce-gymstore:/app
+      - /app/node_modules
+    command: npm run dev -- --host
+
+volumes:
+  pg_data:
